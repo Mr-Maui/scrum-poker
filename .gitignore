@@ -216,3 +216,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Frontend and infrastructure outputs
+node_modules/
+.vite/
+coverage/
+playwright-report/
+test-results/
+cdk.out/
+*.tsbuildinfo
+
+# Local secrets; sanitized examples can be committed
+.env.*
+!.env.example
