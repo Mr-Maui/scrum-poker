@@ -14,7 +14,9 @@ Explicit user instructions take precedence over repository guidance.
 
 ## Implementation rules
 
-- Keep changes focused on the selected task and its acceptance criteria.
+- Keep changes focused on the selected task and its acceptance criteria. At the
+  same time always try to limit code duplication and prefer building scalable,
+  extendable code base.
 - Use TypeScript for the browser and Python for backend and CDK, following the
   proposed architecture unless the task explicitly changes that decision.
 - Keep domain rules independent of React, AWS event envelopes, and storage SDKs.
@@ -40,7 +42,9 @@ Explicit user instructions take precedence over repository guidance.
 - Use `planning/templates/merge-request.md` for a review description. State the
   resulting behavior, validation, and material risks.
 - Prepare reviewable changes; merging and production deployment require user
-  authorization. Do not treat ordinary local implementation as requiring approval.
+  authorization. Do not treat ordinary local implementation as requiring approval,
+  but never commit directly to main. If the current branch is main, create a new
+  branch and commit there.
 
 ## Guidance versus skills
 
