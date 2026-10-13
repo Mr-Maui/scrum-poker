@@ -20,10 +20,11 @@ behavior that depends on a different product decision.
 | Concern | MVP default |
 | --- | --- |
 | Room capacity | 20 participants, including host |
-| Deck | `0, 1, 2, 3, 5, 8, 13, 21, ?` |
+| Deck | `0, 1, 2, 3, 5, 8, 13, 21+, ?` (later will be configurable per room)|
 | Host voting | Host may vote like any participant |
 | Vote changes | Allowed while voting is open |
 | Reveal | Host-only, including when some people have not voted |
+| Results | Visible for each member what they voted, visible missing votes. Indication of `Y out of X` voted. Indication of average, min and max vote on top |
 | Next round | Host-only; new round ID and empty votes |
 | Disconnect | Keep identity and vote; show disconnected presence |
 | Refresh/reconnect | Resume with the same valid guest session |
