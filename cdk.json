@@ -1,0 +1,3 @@
+{
+  "app": "uv run --frozen --package scrumation-infra python -m scrumation_infra"
+}
