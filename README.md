@@ -1,13 +1,14 @@
-# Scrum Poker
+# Scrumation.com
 
 An online estimation board: create a room, share an invitation, vote privately,
 and reveal estimates together.
 
 ## Current status
 
-Repository foundation and proposed architecture. Application code, dependency
-lockfiles, CI integration, and deployed AWS resources are not implemented yet.
-Architecture choices are recommendations for review, not recorded user approvals.
+SP-001 bootstraps the React frontend, installable Python API/infrastructure
+packages, reproducible dependencies, and GitHub Actions validation. Home and room
+routes run locally; room actions clearly remain unavailable until the API exists.
+The stack was accepted on 2026-10-13. AWS resources have not been deployed.
 
 ## Start here
 
@@ -31,18 +32,39 @@ planning/            Tasks, acceptance criteria, and session handoffs
 scripts/             Shared development and CI commands
 ```
 
-Each application boundary currently contains a README describing its intended
-structure. Create source directories when adding real code; do not add dummy
-services or passing placeholder tests.
+Feature behavior starts with SP-002 (domain/contracts) and SP-003 (HTTP rooms).
 
-## Available check
+## Linux / WSL quick start
 
-Requires Python 3.11 or newer, with no third-party packages:
+Use Node **24.21.0**, its bundled npm **11.19.0**, and uv **0.12.13**. uv installs
+Python **3.12.14**, pinned in `.python-version`. Install Node with your preferred
+version manager (`nvm install && nvm use` reads `.nvmrc`) or an official binary;
+do not use Linux Mint's potentially older system Node package. See the
+[Node downloads](https://nodejs.org/en/download) and
+[uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```sh
-python3 scripts/check_repo.py
+npm ci
+uv sync --frozen --all-packages
+npm run dev
 ```
 
-This checks repository documentation links and essential scaffold files. It is
-not an application test. See [SP-001](planning/tasks/SP-001-bootstrap.md) for the
-runnable toolchain bootstrap and its acceptance criteria.
+Open the local URL printed by Vite (normally `http://127.0.0.1:5173`).
+`/rooms/preview` shows the room layout. No AWS credentials or environment secrets
+are needed for local setup or checks. Scrumation.com is the product name;
+production DNS/domain ownership is still a later deployment input.
+
+```sh
+npm run check
+npm exec -- playwright install chromium
+npm run test:browser
+```
+
+`check` runs formatting, linting, type checks, UI/infrastructure tests, frontend
+build, documentation link checks, and offline CDK synthesis. Browser tests run
+against that production build at desktop and mobile sizes. On a fresh Linux
+installation, Playwright may need system libraries: use
+`npm exec -- playwright install --with-deps chromium` (requires sudo for apt).
+
+See [development](docs/development.md) for individual commands and the
+[SP-001 handoff](planning/tasks/SP-001-bootstrap.md) for verified results.

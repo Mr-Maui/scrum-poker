@@ -1,7 +1,8 @@
 # ADR-0001: React SPA with a Python serverless backend
 
-Status: Proposed
+Status: Accepted
 Date: 2026-09-12
+Accepted: 2026-10-13 by project maintainer
 Decision owner: project maintainer
 
 ## Context
@@ -10,7 +11,7 @@ We need small collaborative estimation rooms, reliable hidden voting, and a
 repository that agents can work in across sessions. The maintainer knows Python,
 AWS, and CDK and will review changes. Usage is expected to be intermittent.
 
-## Proposed decision
+## Decision
 
 Use a monorepo with a React/TypeScript/Vite SPA, React Router, TanStack Query,
 Tailwind v4, and selectively adopted shadcn/ui components. Use Python Lambda,

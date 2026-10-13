@@ -225,6 +225,7 @@ playwright-report/
 test-results/
 cdk.out/
 *.tsbuildinfo
+.uv-cache/
 
 # Local secrets; sanitized examples can be committed
 .env.*

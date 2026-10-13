@@ -1,21 +1,21 @@
 # Work board
 
-Updated: 2026-09-12
+Updated: 2026-10-14
 
-Current state: repository foundation prepared for review. No application is
-implemented or deployed. The [architecture ADR](../docs/decisions/0001-stack.md)
-is proposed. The next implementation task is SP-001.
+Current state: repository foundation reviewed; architecture accepted. SP-001 is
+ready for review on `codex/sp-001-bootstrap`. Target developer platforms: Linux/WSL.
+Product branding: Scrumation.com.
 
 ## Sequence
 
-| ID | Task | Status | Depends on |
-| --- | --- | --- | --- |
-| SP-000 | Repository foundation and architecture proposal | Ready for review | — |
-| [SP-001](tasks/SP-001-bootstrap.md) | Runnable frontend, Python, and CDK toolchain | Ready | SP-000 review |
-| [SP-002](tasks/SP-002-domain-contracts.md) | Room rules and versioned contracts | Planned | SP-001 |
-| [SP-003](tasks/SP-003-room-slice.md) | Create, join, vote, and reveal over HTTP | Planned | SP-002 |
-| [SP-004](tasks/SP-004-realtime.md) | Notifications, presence, and reconnect | Planned | SP-003 |
-| [SP-005](tasks/SP-005-release.md) | Public MVP readiness | Planned | SP-004 |
+| ID                                         | Task                                            | Status           | Depends on |
+| ------------------------------------------ | ----------------------------------------------- | ---------------- | ---------- |
+| SP-000                                     | Repository foundation and architecture proposal | Done             | —          |
+| [SP-001](tasks/SP-001-bootstrap.md)        | Runnable frontend, Python, and CDK toolchain    | Ready for review | SP-000     |
+| [SP-002](tasks/SP-002-domain-contracts.md) | Room rules and versioned contracts              | Planned          | SP-001     |
+| [SP-003](tasks/SP-003-room-slice.md)       | Create, join, vote, and reveal over HTTP        | Planned          | SP-002     |
+| [SP-004](tasks/SP-004-realtime.md)         | Notifications, presence, and reconnect          | Planned          | SP-003     |
+| [SP-005](tasks/SP-005-release.md)          | Public MVP readiness                            | Planned          | SP-004     |
 
 Statuses: Planned → Ready → In progress → Ready for review → Done. Use Blocked
 with an exact dependency when necessary. Keep this table and task files aligned.
@@ -38,6 +38,10 @@ by each. Planned tasks are sequencing guidance, not commitments to deploy.
   wiring CI and AWS account/region/domain before any deployment.
 
 ## Resume prompt
+
+SP-001 validation and review notes are in its task file. All local checks passed,
+including 14 automated tests; hosted CI awaits a branch push. Review SP-001 before
+starting the SP-002 domain/contract implementation.
 
 ```text
 Read AGENTS.md and planning/README.md. Continue task SP-NNN from its task file.

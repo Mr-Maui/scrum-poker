@@ -17,24 +17,24 @@ behavior that depends on a different product decision.
 
 ## Working defaults
 
-| Concern | MVP default |
-| --- | --- |
-| Room capacity | 20 participants, including host |
-| Deck | `0, 1, 2, 3, 5, 8, 13, 21+, ?` (later will be configurable per room)|
-| Host voting | Host may vote like any participant |
-| Vote changes | Allowed while voting is open |
-| Reveal | Host-only, including when some people have not voted |
-| Results | Visible for each member what they voted, visible missing votes. Indication of `Y out of X` voted. Indication of average, min and max vote on top |
-| Next round | Host-only; new round ID and empty votes |
-| Disconnect | Keep identity and vote; show disconnected presence |
-| Refresh/reconnect | Resume with the same valid guest session |
-| New browser/session loss | Join as a new participant; no name-based recovery |
-| Host disconnect | Preserve host ownership; reconnect to resume controls |
-| Host credential loss | Create a new room; host transfer is deferred |
-| Expiration | Fixed 24 hours after creation; application enforces expiry |
-| History | Current round only; next round discards previous estimates |
-| Access | Anyone possessing the invitation can join within capacity |
-| Browsers | Current mainstream desktop and mobile browsers |
+| Concern                  | MVP default                                                                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Room capacity            | 20 participants, including host                                                                                                                  |
+| Deck                     | `0, 1, 2, 3, 5, 8, 13, 21+, ?` (later will be configurable per room)                                                                             |
+| Host voting              | Host may vote like any participant                                                                                                               |
+| Vote changes             | Allowed while voting is open                                                                                                                     |
+| Reveal                   | Host-only, including when some people have not voted                                                                                             |
+| Results                  | Visible for each member what they voted, visible missing votes. Indication of `Y out of X` voted. Indication of average, min and max vote on top |
+| Next round               | Host-only; new round ID and empty votes                                                                                                          |
+| Disconnect               | Keep identity and vote; show disconnected presence                                                                                               |
+| Refresh/reconnect        | Resume with the same valid guest session                                                                                                         |
+| New browser/session loss | Join as a new participant; no name-based recovery                                                                                                |
+| Host disconnect          | Preserve host ownership; reconnect to resume controls                                                                                            |
+| Host credential loss     | Create a new room; host transfer is deferred                                                                                                     |
+| Expiration               | Fixed 24 hours after creation; application enforces expiry                                                                                       |
+| History                  | Current round only; next round discards previous estimates                                                                                       |
+| Access                   | Anyone possessing the invitation can join within capacity                                                                                        |
+| Browsers                 | Current mainstream desktop and mobile browsers                                                                                                   |
 
 Display names are labels, not unique identifiers. `?` is a nonnumeric estimate;
 exclude it from any numeric summary. Do not prescribe an automatic final estimate

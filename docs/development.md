@@ -2,14 +2,14 @@
 
 ## Durable context
 
-| Location | Purpose |
-| --- | --- |
-| `AGENTS.md` | Short rules and navigation for every agent session |
-| `docs/` | Product behavior, engineering practices, and current architecture |
-| `docs/decisions/` | Why architectural choices were made and their status |
-| `planning/tasks/` | Scope, acceptance criteria, status, and resumable handoff |
-| Application directories | Implementation and nearby unit tests |
-| `contracts/` | Versioned interface artifacts and examples |
+| Location                | Purpose                                                           |
+| ----------------------- | ----------------------------------------------------------------- |
+| `AGENTS.md`             | Short rules and navigation for every agent session                |
+| `docs/`                 | Product behavior, engineering practices, and current architecture |
+| `docs/decisions/`       | Why architectural choices were made and their status              |
+| `planning/tasks/`       | Scope, acceptance criteria, status, and resumable handoff         |
+| Application directories | Implementation and nearby unit tests                              |
+| `contracts/`            | Versioned interface artifacts and examples                        |
 
 Keep plans and code in the same repository, in separate directories. This lets a
 single MR update behavior, tests, and its documentation atomically. Do not create
@@ -58,27 +58,70 @@ known issues, and the next action. Keep that in the task file, not a chat transc
 
 ## Toolchain and CI contract
 
-Only `python3 scripts/check_repo.py` exists today. The following are bootstrap
-requirements, not currently runnable commands:
+Supported developer platforms are Linux and WSL, including Linux Mint. Run Node
+and uv inside WSL rather than mixing Windows executables into the Linux checkout.
+The root [README](../README.md) describes the frozen installation commands.
+Frontend and browser tooling both use strict TypeScript checks.
 
-| Boundary | Required checks after bootstrap |
-| --- | --- |
-| Web | Format/lint, TypeScript check, Vitest behavior tests, production build |
-| API | Ruff lint/format, mypy, pytest domain/adapter tests |
-| Infra | Ruff, mypy, CDK assertion tests, synth with explicit test context |
-| Contracts | Schema/example validation, reproducible TS generation with no drift |
-| End-to-end | Playwright using two independent browser contexts |
+Pinned runtimes: Node 24.21.0, npm 11.19.0, Python 3.12.14, uv 0.12.13. npm
+dependencies are exact in manifests and resolved by the root `package-lock.json`;
+Python dependencies are resolved by root `uv.lock`. Update toolchain pins,
+lockfiles, CI inputs, and these docs together when upgrading.
+
+Run `npm run check` for the shared local/CI suite. Useful individual commands:
+
+```sh
+npm run format:check
+npm run lint
+npm run typecheck
+npm test
+npm run build
+uv run --frozen ruff check .
+uv run --frozen ruff format --check .
+uv run --frozen mypy
+uv run --frozen pytest
+uv run --frozen python scripts/check_repo.py
+npm run infra:synth
+npm run test:browser
+```
+
+Format with `npm run format` and `uv run --frozen ruff format .`; the verification
+suite checks formatting without changing source. Browser tests need the built
+frontend and Playwright Chromium installed; CI installs browser dependencies.
+`infra:synth` uses an explicit all-zero placeholder account and `eu-west-1` with
+lookups disabled. It creates local templates, not deployed resources. CDK tests
+assert bucket privacy, encryption, TLS, retention, and target validation.
+
+Current versus future test boundaries:
+
+| Boundary   | Required checks after bootstrap                                                |
+| ---------- | ------------------------------------------------------------------------------ |
+| Web        | Format/lint, TypeScript check, Vitest behavior tests, production build         |
+| API        | Ruff lint/format and mypy now; domain/adapter tests start in SP-002/003        |
+| Infra      | Ruff, mypy, CDK assertion tests, synth with explicit test context              |
+| Contracts  | Schema/example validation and reproducible TS generation start in SP-002       |
+| End-to-end | Playwright route/accessibility smoke tests now; two-user flow starts in SP-003 |
 
 Use one npm lockfile at the root for frontend/tooling workspaces and one root uv
 workspace/lockfile for API and infra, with separate package dependencies. Keep
-test/infra dependencies out of the Lambda artifact. Pin runtime/tool versions and
-document frozen install commands during SP-001.
+test/infra dependencies out of the Lambda artifact. `uv sync --frozen --all-packages`
+installs both packages plus development tools for contributors. A runtime-only
+API environment can be created separately, without altering the contributor
+environment:
 
-Put repeatable commands in scripts/package manifests, then have CI call those
-commands. The Git hosting provider is not established; select GitHub Actions or
-GitLab CI during bootstrap instead of maintaining both. MRs run validation without
-production credentials. Deployment jobs use explicit environments and scoped
-short-lived credentials, with a production approval gate.
+```sh
+UV_PROJECT_ENVIRONMENT=/tmp/scrumation-api-runtime uv sync --frozen --package scrumation-api --no-dev
+uv build --package scrumation-api --out-dir dist/api
+uv build --package scrumation-infra --out-dir dist/infra
+```
+
+The API wheel contains the API package and declares only its runtime dependencies.
+Building a deployable Lambda zip, including those dependencies, is SP-003.
+
+GitHub Actions runs `npm run check` and browser tests on pull requests and pushes
+to `main`. Actions are pinned to commit hashes and the job has read-only repository
+permissions. CI uses no AWS credentials. Production deployment jobs and scoped,
+short-lived AWS credentials are introduced during deployment work.
 
 Test behavior at the cheapest layer that can establish it. Domain tests cover
 authorization, hidden-vote projection, round transitions, and idempotency.

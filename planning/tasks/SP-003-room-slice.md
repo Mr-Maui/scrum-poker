@@ -14,16 +14,16 @@ new round. Temporary polling provides synchronization until SP-004.
 ## Acceptance criteria
 
 - [ ] Implement authenticated HTTP handlers and DynamoDB adapters with bounded
-  optimistic-concurrency retries and durable command receipts.
+      optimistic-concurrency retries and durable command receipts.
 - [ ] Define HTTP API, tables, IAM, expiry, log retention, and frontend hosting
-  in CDK; all deployment inputs are explicit.
+      in CDK; all deployment inputs are explicit.
 - [ ] Implement accessible room UI with pending/error/disconnected states and
-  one query cache; no other user's hidden estimates reach a browser.
+      one query cache; no other user's hidden estimates reach a browser.
 - [ ] Two-browser Playwright scenario demonstrates create/join/vote/reveal/reset.
 - [ ] AWS integration checks cover parallel votes, duplicate commands, forged
-  identity, cross-room access, expiry, and stale-round rejection.
+      identity, cross-room access, expiry, and stale-round rejection.
 - [ ] Record dev deployment/check results if authorized and configured; explicitly
-  leave cloud validation pending otherwise.
+      leave cloud validation pending otherwise.
 
 ## Handoff
 

@@ -4,11 +4,10 @@ This deliberately checks file targets, not heading anchors or remote URLs.
 It is a lightweight repository hygiene command, not an application test suite.
 """
 
-from pathlib import Path
 import re
 import sys
+from pathlib import Path
 from urllib.parse import unquote, urlsplit
-
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = (
@@ -46,7 +45,7 @@ def main() -> int:
         for match in LINK.finditer(content):
             target = match.group(1).strip()
             if target.startswith("<") and ">" in target:
-                target = target[1:target.index(">")]
+                target = target[1 : target.index(">")]
             else:
                 target = target.split()[0]
             parsed = urlsplit(target)

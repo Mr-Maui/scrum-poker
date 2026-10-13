@@ -1,6 +1,12 @@
 # End-to-end boundary
 
-Status: scenarios defined; Playwright setup and tests are implementation tasks.
+Status: Playwright checks the production frontend at desktop and mobile sizes.
+The current suite covers route navigation, clear disconnected controls, keyboard
+focus, and horizontal overflow. Live multi-user acceptance starts in SP-003.
+
+Run `npm run build`, `npm exec -- playwright install chromium`, then
+`npm run test:browser` from the repository root. The runner starts and stops the
+local Vite preview server itself. No AWS configuration is needed for this suite.
 
 Use separate browser contexts for host and guest. Cover create/join, private vote,
 reveal, next round, refresh, network loss, and invalid/expired invitations. Inspect

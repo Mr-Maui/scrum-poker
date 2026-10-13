@@ -1,0 +1,13 @@
+[project]
+name = "scrumation-api"
+version = "0.1.0"
+description = "Scrumation application and serverless API package"
+requires-python = ">=3.12,<3.13"
+dependencies = ["boto3>=1.40,<2", "pydantic>=2.11,<3"]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scrumation_api"]

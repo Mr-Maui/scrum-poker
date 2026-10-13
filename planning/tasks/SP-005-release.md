@@ -15,13 +15,13 @@ operating assumptions.
 
 - [ ] Keyboard/mobile flows and all product acceptance scenarios pass.
 - [ ] Review authorization, vote privacy, CSP/CORS, secret handling, payload/capacity
-  limits, creation/join abuse controls, and session expiry.
+      limits, creation/join abuse controls, and session expiry.
 - [ ] Run representative load checks; document active rooms/participants, commands,
-  fanout, observed latency, throttling, and a regional cost estimate.
+      fanout, observed latency, throttling, and a regional cost estimate.
 - [ ] Configure alerts for errors/delivery backlog and spending, with bounded logs.
 - [ ] Document environment setup, deployment, smoke check, cleanup, and rollback.
 - [ ] Configure deployment CI with short-lived AWS credentials and a production
-  approval gate, then prepare a concrete deployment diff for maintainer review.
+      approval gate, then prepare a concrete deployment diff for maintainer review.
 
 ## Handoff
 

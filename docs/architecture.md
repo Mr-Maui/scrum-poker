@@ -1,30 +1,31 @@
-# Proposed architecture
+# Architecture
 
-Status: recommended baseline for review, 2026-09-12. No runtime is implemented.
+Status: baseline accepted by maintainer, 2026-10-13.
 See [ADR-0001](decisions/0001-stack.md) and [product assumptions](product.md).
 
 ## Stack
 
-| Layer | Recommendation | Reason |
-| --- | --- | --- |
-| Browser | React + TypeScript + Vite SPA | Familiar ecosystem; static hosting fits a room-based app |
-| Routes | React Router, declarative mode | Home and invitation/room URLs without a server framework |
-| Server state | TanStack Query | One cache for HTTP room snapshots and mutation lifecycle |
-| UI state | React component state and small context | Enough for dialogs, drafts, and connection status |
-| Styling | Tailwind CSS v4 + selected shadcn/ui components | Consistent tokens and editable component source |
-| Backend | Python Lambda handlers, Pydantic boundary models, boto3 adapters | Matches maintainer experience; small event-driven workload |
-| HTTP | API Gateway HTTP API | Create, join, snapshot, and room commands |
-| Realtime | API Gateway WebSocket API | Room-change notifications and connection lifecycle |
-| Storage | DynamoDB on-demand + Streams | Durable room state, conditional writes, notification trigger |
-| Hosting | Private S3 bucket behind CloudFront | Static frontend, no frontend application server |
-| Infrastructure | AWS CDK v2 in Python | Same review language as backend |
-| Tooling | npm + uv, committed lockfiles | Straightforward JS and Python dependency workflows |
-| Tests | pytest, Vitest/Testing Library, Playwright, CDK assertions | Domain, UI, multi-browser, and infrastructure coverage |
+| Layer          | Recommendation                                                   | Reason                                                       |
+| -------------- | ---------------------------------------------------------------- | ------------------------------------------------------------ |
+| Browser        | React + TypeScript + Vite SPA                                    | Familiar ecosystem; static hosting fits a room-based app     |
+| Routes         | React Router, declarative mode                                   | Home and invitation/room URLs without a server framework     |
+| Server state   | TanStack Query                                                   | One cache for HTTP room snapshots and mutation lifecycle     |
+| UI state       | React component state and small context                          | Enough for dialogs, drafts, and connection status            |
+| Styling        | Tailwind CSS v4 + selected shadcn/ui components                  | Consistent tokens and editable component source              |
+| Backend        | Python Lambda handlers, Pydantic boundary models, boto3 adapters | Matches maintainer experience; small event-driven workload   |
+| HTTP           | API Gateway HTTP API                                             | Create, join, snapshot, and room commands                    |
+| Realtime       | API Gateway WebSocket API                                        | Room-change notifications and connection lifecycle           |
+| Storage        | DynamoDB on-demand + Streams                                     | Durable room state, conditional writes, notification trigger |
+| Hosting        | Private S3 bucket behind CloudFront                              | Static frontend, no frontend application server              |
+| Infrastructure | AWS CDK v2 in Python                                             | Same review language as backend                              |
+| Tooling        | npm + uv, committed lockfiles                                    | Straightforward JS and Python dependency workflows           |
+| Tests          | pytest, Vitest/Testing Library, Playwright, CDK assertions       | Domain, UI, multi-browser, and infrastructure coverage       |
 
 Choose supported stable dependency releases during bootstrap, then commit exact
 resolved lockfiles. Do not use floating `latest` in CI. Python 3.12 is the proposed
-project baseline; select a supported Node LTS at bootstrap. CDK also needs Node
-even when infrastructure is written in Python.
+project baseline. SP-001 pins Python 3.12.14 and Node 24.21.0 LTS. CDK also needs
+Node even when infrastructure is written in Python. Local development targets
+Linux/WSL; user-facing branding is Scrumation.com.
 
 React recommends frameworks generally, but its documented Vite path is a
 reasonable deliberate choice here: room pages need neither SEO rendering nor

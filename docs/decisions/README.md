@@ -3,9 +3,9 @@
 Use an ADR for decisions with lasting consequences: state ownership, transport,
 authentication, persistence, infrastructure, or a major dependency.
 
-| ADR | Status | Subject |
-| --- | --- | --- |
-| [0001](0001-stack.md) | Proposed | React SPA and Python serverless backend |
+| ADR                   | Status   | Subject                                 |
+| --------------------- | -------- | --------------------------------------- |
+| [0001](0001-stack.md) | Accepted | React SPA and Python serverless backend |
 
 Statuses: Proposed, Accepted, Superseded. A proposal is usable as an explicitly
 stated working assumption; do not claim it was accepted by the maintainer.
