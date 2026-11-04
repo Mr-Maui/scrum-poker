@@ -13,4 +13,5 @@ uv run --frozen ruff format --check .
 uv run --frozen mypy
 uv run --frozen pytest
 uv run --frozen python scripts/check_repo.py
+uv run --frozen python scripts/check_trust.py
 npm run infra:synth

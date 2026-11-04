@@ -23,7 +23,7 @@ See [ADR-0001](decisions/0001-stack.md) and [product assumptions](product.md).
 
 Choose supported stable dependency releases during bootstrap, then commit exact
 resolved lockfiles. Do not use floating `latest` in CI. Python 3.12 is the proposed
-project baseline. SP-001 pins Python 3.12.14 and Node 24.21.0 LTS. CDK also needs
+project baseline. SP-001 pins Python 3.12.16 and Node 24.22.2 LTS. CDK also needs
 Node even when infrastructure is written in Python. Local development targets
 Linux/WSL; user-facing branding is Scrumation.com.
 

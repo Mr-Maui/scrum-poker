@@ -63,10 +63,15 @@ and uv inside WSL rather than mixing Windows executables into the Linux checkout
 The root [README](../README.md) describes the frozen installation commands.
 Frontend and browser tooling both use strict TypeScript checks.
 
-Pinned runtimes: Node 24.21.0, npm 11.19.0, Python 3.12.14, uv 0.12.13. npm
+Pinned runtimes: Node 24.22.2, npm 12.2.1, Python 3.12.16, uv 0.13.6. npm
 dependencies are exact in manifests and resolved by the root `package-lock.json`;
 Python dependencies are resolved by root `uv.lock`. Update toolchain pins,
 lockfiles, CI inputs, and these docs together when upgrading.
+
+Security floors, certificate-bundle checks, and required host updates are in
+[security update notes](security-updates.md). npm is installed separately from
+Node's bundled version. Audited dev tools include pip, pip-audit, and Hatchling;
+these are excluded from the API runtime installation.
 
 Run `npm run check` for the shared local/CI suite. Useful individual commands:
 
@@ -83,6 +88,7 @@ uv run --frozen pytest
 uv run --frozen python scripts/check_repo.py
 npm run infra:synth
 npm run test:browser
+npm run audit
 ```
 
 Format with `npm run format` and `uv run --frozen ruff format .`; the verification
@@ -118,7 +124,7 @@ uv build --package scrumation-infra --out-dir dist/infra
 The API wheel contains the API package and declares only its runtime dependencies.
 Building a deployable Lambda zip, including those dependencies, is SP-003.
 
-GitHub Actions runs `npm run check` and browser tests on pull requests and pushes
+GitHub Actions runs `npm run check`, dependency audits, and browser tests on pull requests and pushes
 to `main`. Actions are pinned to commit hashes and the job has read-only repository
 permissions. CI uses no AWS credentials. Production deployment jobs and scoped,
 short-lived AWS credentials are introduced during deployment work.

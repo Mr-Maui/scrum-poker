@@ -1,10 +1,13 @@
 # Work board
 
-Updated: 2026-10-14
+Updated: 2026-11-04
 
 Current state: repository foundation reviewed; architecture accepted. SP-001 is
 ready for review on `codex/sp-001-bootstrap`. Target developer platforms: Linux/WSL.
 Product branding: Scrumation.com.
+
+SP-006 security refresh is ready for review on the same branch, as requested by the
+maintainer. See [the task](tasks/SP-006-security-refresh.md).
 
 ## Sequence
 
@@ -12,6 +15,7 @@ Product branding: Scrumation.com.
 | ------------------------------------------ | ----------------------------------------------- | ---------------- | ---------- |
 | SP-000                                     | Repository foundation and architecture proposal | Done             | —          |
 | [SP-001](tasks/SP-001-bootstrap.md)        | Runnable frontend, Python, and CDK toolchain    | Ready for review | SP-000     |
+| [SP-006](tasks/SP-006-security-refresh.md) | Security dependency and toolchain refresh       | Ready for review | SP-001     |
 | [SP-002](tasks/SP-002-domain-contracts.md) | Room rules and versioned contracts              | Planned          | SP-001     |
 | [SP-003](tasks/SP-003-room-slice.md)       | Create, join, vote, and reveal over HTTP        | Planned          | SP-002     |
 | [SP-004](tasks/SP-004-realtime.md)         | Notifications, presence, and reconnect          | Planned          | SP-003     |
@@ -39,9 +43,10 @@ by each. Planned tasks are sequencing guidance, not commitments to deploy.
 
 ## Resume prompt
 
-SP-001 validation and review notes are in its task file. All local checks passed,
-including 14 automated tests; hosted CI awaits a branch push. Review SP-001 before
-starting the SP-002 domain/contract implementation.
+SP-001 and SP-006 validation and review notes are in their task files. The final
+security refresh passed all local checks, 16 automated tests, and both dependency
+audits. Host CA/NSS packages were verified fixed on 2026-11-04. Hosted CI for the
+refresh awaits a push. Review these changes before starting SP-002.
 
 ```text
 Read AGENTS.md and planning/README.md. Continue task SP-NNN from its task file.

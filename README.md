@@ -34,16 +34,24 @@ scripts/             Shared development and CI commands
 
 Feature behavior starts with SP-002 (domain/contracts) and SP-003 (HTTP rooms).
 
+## Security refresh
+
+See [security update notes](docs/security-updates.md) for the eMudhra certificate
+incident, patched versions, audits, and required Linux Mint host updates. Recreate
+old virtual environments with the patched Python; updating Python dependencies
+alone does not replace the interpreter or pip's bundled certificates.
+
 ## Linux / WSL quick start
 
-Use Node **24.21.0**, its bundled npm **11.19.0**, and uv **0.12.13**. uv installs
-Python **3.12.14**, pinned in `.python-version`. Install Node with your preferred
+Use Node **24.22.2**, npm **12.2.1**, and uv **0.13.6**. uv installs
+Python **3.12.16**, pinned in `.python-version`. Install Node with your preferred
 version manager (`nvm install && nvm use` reads `.nvmrc`) or an official binary;
 do not use Linux Mint's potentially older system Node package. See the
 [Node downloads](https://nodejs.org/en/download) and
 [uv installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```sh
+npm install --global npm@12.2.1
 npm ci
 uv sync --frozen --all-packages
 npm run dev
